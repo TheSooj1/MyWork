@@ -21,50 +21,57 @@ This document contains the following details:
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
 Load balancing ensures that the application will be highly available , in addition to restricting traffic to the network.
-  -_What aspects of security do load balencers protect? Availability, Web Traffic, Web Security
-  -_What is the advantage of a jump box? Security and Access control
+  *What aspects of security do load balencers protect? Availability, Web Traffic, Web Security
+  *What is the advantage of a jump box? Security and Access control
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the data and system logs.
- -_What does Filebeat watch for? the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
- -_What does Metricbeat record? It takes the metrics and statistics that it collects and ships them to the output that you specify
+ *What does Filebeat watch for? the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
+ *What does Metricbeat record? It takes the metrics and statistics that it collects and ships them to the output that you specify
 
 The configuration details of each machine may be found below.
 
-| Name          | Function      | IP Address                | Operating system |
-|---------------|---------------|---------------------------|------------------|
-| Jump Box      | Gateway       | 10.0.0.10/ 104.43.234.158 | Linux            |
-| Web-1         | Web Server    | 10.0.0.11                 | Linux            |
-| Web-2         | Web Sever     | 10.0.0.12                 | Linux            |
-| ELK           | ELK Server    | 10.2.0.4/20.127.74.241    | Linux            |
-| Load Balancer | Load Balancer | 40.113.219.168            | Linux            |
+| Name                  | Function      | IP Address                | Operating system |
+|-----------------------|---------------|---------------------------|------------------|
+| Jump Box Provisioner  | Gateway       | 10.0.0.10/ 104.43.234.158 | Linux            |
+| Web-1                 | Web Server    | 10.0.0.11                 | Linux            |
+| Web-2                 | Web Sever     | 10.0.0.12                 | Linux            |
+| ELK Server            | ELK Server    | 10.2.0.4/20.127.74.241    | Linux            |
+| Load Balancer         | Load Balancer | 40.113.219.168            | Linux            |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the Elk Server machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+*The public IP of the outside workstation on TCP port 22
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by
+  *Jump Box Provisioner
+  *Authorized Workstation
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name                  | Publicly Accessible  | Allowed IP address                     |
+|-----------------------|----------------------|----------------------------------------|
+| Jump Box Provisioner  | No                   | Authorized Workstation IP SSH Port 22  |
+| Web-1                 | No                   | 10.0.0.10/104.43.234.158 SSH Port 22   |
+| Web-2                 | No                   | 10.0.0.10/104.43.234.158 SSH Port 22   |
+| ELK Server            | No                   | Authorized Workstation IP TCP Port 22  |
+| Load Balancer         | No                   | Authorized Workstation IP HTTP Port 80 |
 
 ### Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+*Ansible playbooks give you a fast abd easy way to deploy and install multiple apps without having to manually install each one
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+  *Speicify the ELK server machine and the remote user
+  * Installs docker IO, python3-pip, Docker python module
+  * Increases system memory
+  * Launches and exploses the container to published ports
+      -5601:5601
+      -9208:9200
+      -5044:5044
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
@@ -72,25 +79,29 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+  *Web-1 10.0.0.11
+  *Web-2 10.0.0.12
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+  *Elk Server
+  *Web-1
+  *Web-2
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+  *Log Events 
+  *Metrics and system Stats
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the ELk Install playbook file to Elk Server
+- Update the gilebeat-playbook.yml file to include. curl command for installing filebeat: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+- Run the playbook, and navigate to Kibana > Logs : Add log data > System logs > 5:Module Status > Check data, to check to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
-
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+Answer the following questions to fill in the blanks:_
+  *Which file is the playbook? Where do you copy it? into the Ansible directory 
+  *Which file do you update to make Ansible run the playbook on a specific machine? filebeat-playbook.yml for filebeat and MetricBeat-playbook for Metricbeat
+  
+  *How do I specify which machine to install the ELK server on versus which to install Filebeat on? In the playbook, change the host name to where it is being run
+  *Which URL do you navigate to in order to check that the ELK server is running? http://20.127.74.241/apps/kibana
