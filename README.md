@@ -43,7 +43,7 @@ The configuration details of each machine may be found below.
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the Elk Server machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-*The public IP of the outside workstation on TCP port 22
+*The Authorized Workstation public IP on TCP port 22
 
 Machines within the network can only be accessed by
   *Jump Box Provisioner
