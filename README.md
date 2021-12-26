@@ -2,11 +2,10 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![TODO: Update the path with the name of your diagram](Images/diagram_filename.png)
+Diagram/Final ELK diagram .drawio.pdf
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the _____ file may be used to install only certain pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook file may be used to install only certain pieces of it, such as Filebeat.
 
-  - _TODO: Enter the playbook file._
 
 This document contains the following details:
 - Description of the Topologu
@@ -21,22 +20,23 @@ This document contains the following details:
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly _____, in addition to restricting _____ to the network.
-- _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
+Load balancing ensures that the application will be highly available , in addition to restricting traffic to the network.
+  -What aspects of security do load balencers protect? Availability, Web Traffic, Web Security
+  -What is the advantage of a jump box? Security and Access control
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the data and system logs.
+ -What does Filebeat watch for? the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
+ -What does Metricbeat record? It takes the metrics and statistics that it collects and ships them to the output that you specify
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-| Name     | Function | IP Address | Operating System |
-|----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Name          | Function      | IP Address                | Operating system |
+|---------------|---------------|---------------------------|------------------|
+| Jump Box      | Gateway       | 10.0.0.10/ 104.43.234.158 | Linux            |
+| Web-1         | Web Server    | 10.0.0.11                 | Linux            |
+| Web-2         | Web Sever     | 10.0.0.12                 | Linux            |
+| ELK           | ELK Server    | 10.2.0.4/20.127.74.241    | Linux            |
+| Load Balancer | Load Balancer | 40.113.219.168            | Linux            |
 
 ### Access Policies
 
